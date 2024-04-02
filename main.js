@@ -31,15 +31,42 @@ class World {
     //   new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/16, { x: 0, y: -init_speed * (1/16) }),
     //   new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/16, { x: 0, y: init_speed * 16/16 }),
     // ]
-    // Sun, Earth & moon simulation 2
+    // Sun, Earth & moon simulation 1 - Non restricted moon - Non fixed sun
+    // G = 460
+    // init_speed = 2.0
+    // init_mass = 360
+    // this.bodies = [
+    //   new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 17/24, { x: 0, y: -init_speed * (1/16 + 1/24/24) }),
+    //   new Body({ x: this.size.x * 72/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
+    //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }),
+    // ]
+    // Sun, Earth & moon simulation 2 - Non restricted moon - Fixed sun
+    // G = 460
+    // init_speed = 2.0
+    // init_mass = 360
+    // this.bodies = [
+    //   // new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 17/24, { x: 0, y: -init_speed * (1/16 + 1/24/24) }),
+    //   new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 17/24, { x: 0, y: 0 }, true),
+    //   new Body({ x: this.size.x * 72/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
+    //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }),
+    // ]
+    // Sun, Earth & moon simulation 3 - restricted moon - Non fixed sun
+    // G = 460
+    // init_speed = 2.0
+    // init_mass = 360
+    // this.bodies = [
+    //   new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: -init_speed * (1/16) }),
+    //   new Body({ x: this.size.x * 72/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
+    //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
+    // ]
+    // Sun, Earth & moon simulation 4 - restricted moon - fixed sun
     G = 460
     init_speed = 2.0
     init_mass = 360
     this.bodies = [
-      // new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 17/24, { x: 0, y: -init_speed * (1/16 + 1/24/24) }),
-      new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 17/24, { x: 0, y: 0 }, true),
+      new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: 0 }, true),
       new Body({ x: this.size.x * 72/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
-      new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }),
+      new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
     ]
     // this.bodies = [
     //   new Body({ x: this.size.x * 8/24, y: this.size.y/2 }, init_mass, { x: 0, y: 1/4* init_speed }),
@@ -79,19 +106,20 @@ class Force {
 
 
 class Body {
-  constructor(pos, mass, v, isFixed = false){
+  constructor(pos, mass, v, isFixed = false, isRestricted = false){
     this.id = crypto.randomUUID()
     this.pos = {x: pos.x, y: pos.y}
     this.mass = mass
     this.v = {x: v.x, y: v.y}
     this.forces = []
     this.isFixed = isFixed
+    this.isRestricted = isRestricted
     //this.color = `#${(255-this.id.charCodeAt(0)).toString(16)}${(255-this.id.charCodeAt(1)).toString(16)}${(255-this.id.charCodeAt(2)).toString(16)}`
     this.color = `#${(156 + Math.floor(Math.random() * 101)).toString(16)}${(156 + Math.floor(Math.random() * 101)).toString(16)}${(156 + Math.floor(Math.random() * 101)).toString(16)}`
   }
 
   copy(){
-    let copy = new Body(this.pos, this.mass, this.v)
+    let copy = new Body(this.pos, this.mass, this.v, this.isFixed, this.isRestricted)
     copy.id = this.id
     return copy
   }
@@ -119,7 +147,7 @@ class Body {
   computeForces(bodies){
     this.forces = []
     for (const body of bodies){
-      if (!this.isFixed && body.id != this.id) {
+      if (!this.isFixed && !body.isRestricted && body.id != this.id) {
         this.forces.push(this.forceTowards(body))
       }
     }
