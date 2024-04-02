@@ -1,0 +1,8 @@
+canvas {
+  /* background-color: midnightblue; */
+  position: absolute;
+}
+
+#back_canvas {
+  background-color: midnightblue;
+}
