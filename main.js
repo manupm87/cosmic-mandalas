@@ -60,13 +60,16 @@ class World {
     //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
     // ]
     // Sun, Earth & moon simulation 4 - restricted moon - fixed sun
-    G = 460
-    init_speed = 2.0
+    G = 420
+    init_speed = 1.8
     init_mass = 360
     this.bodies = [
       new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: 0 }, true),
-      new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
-      new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
+      new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 32/32 }),
+      new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: 0 }, false, true),
+      new Body({ x: this.size.x * 78/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: 0 }, false, true),
+      new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 65/32 }, false, true),
+      new Body({ x: this.size.x * 78/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 65/32 }, false, true),
     ]
     // this.bodies = [
     //   new Body({ x: this.size.x * 8/24, y: this.size.y/2 }, init_mass, { x: 0, y: 1/4* init_speed }),
