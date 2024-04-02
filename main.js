@@ -5,7 +5,7 @@ class World {
   constructor(){
     let init_speed = 1.6
     let init_mass = 80
-    this.size = { x: 1600, y: 960 }
+    this.size = { x: 1200, y: 1200 }
     // this.bodies = [
     //   new Body({ x: this.size.x * 6/24, y: this.size.y/2 }, init_mass * 1/2, { x: 0, y: init_speed/4 }),
     //   new Body({ x: this.size.x * 10/24, y: this.size.y/2 }, init_mass * 1/4, { x: 0, y: -init_speed/2 }),
@@ -84,6 +84,8 @@ class Body {
     this.mass = mass
     this.v = {x: v.x, y: v.y}
     this.forces = []
+    //this.color = `#${(255-this.id.charCodeAt(0)).toString(16)}${(255-this.id.charCodeAt(1)).toString(16)}${(255-this.id.charCodeAt(2)).toString(16)}`
+    this.color = `#${(156 + Math.floor(Math.random() * 101)).toString(16)}${(156 + Math.floor(Math.random() * 101)).toString(16)}${(156 + Math.floor(Math.random() * 101)).toString(16)}`
   }
 
   copy(){
@@ -158,15 +160,15 @@ class Renderer {
 		this.front.clearRect(0, 0, this.front.canvas.clientWidth, this.front.canvas.clientHeight);
 	}
   renderBody(body){
-    this.front.fillStyle = 'rgb(128,255,128)';
+    this.front.fillStyle = body.color;
 		this.front.beginPath();
 		this.front.arc(body.pos.x, body.pos.y, (1000 + 100*body.mass)/500, 0, 2 * Math.PI, false);
 		this.front.fill();
   }
   renderOrbit(body){
     this.back.beginPath()
-    this.back.lineWidth = 3
-    this.back.strokeStyle = "green";  // This path is green.
+    this.back.lineWidth = 1
+    this.back.strokeStyle = body.color;  // This path is green.
     this.back.moveTo(body.pos.x, body.pos.y);
     this.back.lineTo(body.pos.x - body.v.x, body.pos.y - body.v.y);
     this.back.stroke();
