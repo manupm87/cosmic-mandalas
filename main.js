@@ -1,5 +1,5 @@
 let G = 150
-const FRAME_TIME = 30 // Anyithing below 50 (ms) should sufice. FRAME_RATE = 1000/FRAME_TIME (should be higher than 20 fps)
+const FRAME_TIME = 1000/60 // Anyithing below 50 (ms) should sufice. FRAME_RATE = 1000/FRAME_TIME (should be higher than 20 fps)
 
 class World {
   constructor(){
@@ -24,13 +24,15 @@ class World {
     //   new Body({ x: this.size.x * 16/24, y: this.size.y/2 }, init_mass * 1/8, { x: 0, y: -2*init_speed/4 }),
     // ]
     // Sun & Earth simulation 1
+    // G = 460
+    // init_speed = 2.0
+    // init_mass = 360
     // this.bodies = [
-    //   new Body({ x: this.size.x * 36/96, y: this.size.y/2 }, init_mass * 4, { x: 0, y: -0.05 }),
-    //   new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/4, { x: 0, y: init_speed/2 }),
-    //   // new Body({ x: this.size.x * 91/96, y: this.size.y/2 }, init_mass * 1/16, { x: 0, y: init_speed * 2/3 }),
+    //   new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/16, { x: 0, y: -init_speed * (1/16) }),
+    //   new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/16, { x: 0, y: init_speed * 16/16 }),
     // ]
-    // Sun & Earth simulation 2
-    G = 256
+    // Sun, Earth & moon simulation 2
+    G = 460
     init_speed = 2.0
     init_mass = 360
     this.bodies = [
@@ -183,11 +185,23 @@ class Game {
     this.world = new World()
     this.renderer = new Renderer(front_canvas, back_canvas)
   }
+
+  gameLoop(start){
+    const dt = performance.now() - start
+    this.world.computeWorld(FRAME_TIME)
+    this.renderer.renderWorld(this.world)
+    requestAnimationFrame((start) => {
+      this.gameLoop(start)
+    })
+  }
   start = function() {
-    setInterval(() => {
-      this.world.computeWorld(FRAME_TIME)
-      this.renderer.renderWorld(this.world)
-    }, FRAME_TIME)
+    // setInterval(() => {
+    //   this.world.computeWorld(FRAME_TIME)
+    //   this.renderer.renderWorld(this.world)
+    // }, FRAME_TIME)
+    requestAnimationFrame((start) => {
+      this.gameLoop(start)
+    })
   }
 }
 
