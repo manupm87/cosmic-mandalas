@@ -65,8 +65,8 @@ class World {
     init_mass = 360
     this.bodies = [
       new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: 0 }, true),
-      new Body({ x: this.size.x * 72/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
-      new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
+      new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 16/16 }),
+      new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
     ]
     // this.bodies = [
     //   new Body({ x: this.size.x * 8/24, y: this.size.y/2 }, init_mass, { x: 0, y: 1/4* init_speed }),
