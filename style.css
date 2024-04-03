@@ -24,12 +24,21 @@ canvas {
   font-family: "nasalization";
   src: url("./static/fonts/nasalization-free/nasalization-rg.otf");
 }
+@font-face {
+  font-family: "potra";
+  src: url("./static/fonts/potra/Potra.ttf");
+}
+@font-face {
+  font-family: "sf-outer-limits";
+  src: url("./static/fonts/sf-outer-limits/SFOuterLimits.ttf");
+}
 
 #title{
-  font-family: "nasalization";
+  font-family: "sf-outer-limits";
   font-size: 6em;
   text-align: center;
   color: lightblue;
+  margin-top: 1em;
 }
 #title_bold {
   color: midnightblue;
