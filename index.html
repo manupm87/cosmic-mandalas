@@ -1,7 +1,9 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
+    <script language="JavaScript" src="experiments.js"></script>
     <script language="JavaScript" src="main.js"></script>
+    <!-- <script language="JavaScript" src="static/js/js-yaml.min.js"></script> -->
   </head>
   <body>
     <div>
@@ -12,6 +14,41 @@
     <div id="canvas_container">
       <canvas id="back_canvas" width="900" height="900" style="z-index: 0;"></canvas>
       <canvas id="front_canvas" width="900" height="900" style="z-index: 1;"></canvas>
+    </div>
+    <div id="settings">
+
+    </div>
+    <div id="body_template" class="body_settings">
+      <div>
+        <label for="size">Mass: </label>
+        <input type="number" class="size" name="size" min="1" max="512" value="50" oninput="restart()">
+      </div>
+      <div>
+        <label for="pos_x">x<sub>0</sub>: </label>
+        <input type="number" class="pos_x" name="pos_x" min="1" max="899" value="450" oninput="restart()">
+        <label for="pos_y">y<sub>0</sub>: </label>
+        <input type="number" class="pos_y" name="pos_y" min="1" max="899" value="450" oninput="restart()">
+      </div>
+      <div>
+        <label for="v_x">v<sub>x<sub>0</sub></sub>: </label>
+        <input type="number" step="0.1" class="v_x" name="v_x" min="-10" max="10" value="0.5" oninput="restart()">
+        <label for="v_y">v<sub>y<sub>0</sub></sub>: </label>
+        <input type="number" step="0.1" class="v_y" name="v_y" min="-10" max="10" value="0.5" oninput="restart()">
+      </div>
+      <div>
+        <input type="checkbox" class="is_fixed" name="is_fixed" value="is_fixed" oninput="restart()">
+        <label for="is_fixed"> Fixed</label>
+      </div>
+      <div>
+        <input type="checkbox" class="is_restricted" name="is_restricted" value="is_restricted" oninput="restart()">
+        <label for="is_restricted"> Restricted</label>
+      </div>
+      <div>
+        <input type="color" class="body_color" name="body_color" oninput="restart()">
+      </div>
+      <div>
+        <input type="button" class="deletebtn" value="x">
+      </div>
     </div>
     <!-- <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button> -->
   </body>

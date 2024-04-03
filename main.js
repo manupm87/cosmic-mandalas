@@ -32,7 +32,7 @@ class World {
     //   new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/16, { x: 0, y: init_speed * 16/16 }),
     // ]
     // Sun, Earth & moon simulation 1 - Non restricted moon - Non fixed sun
-    // G = 460
+    // G = 320
     // init_speed = 2.0
     // init_mass = 360
     // this.bodies = [
@@ -41,7 +41,7 @@ class World {
     //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }),
     // ]
     // Sun, Earth & moon simulation 2 - Non restricted moon - Fixed sun
-    // G = 460
+    // G = 320
     // init_speed = 2.0
     // init_mass = 360
     // this.bodies = [
@@ -51,7 +51,7 @@ class World {
     //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }),
     // ]
     // Sun, Earth & moon simulation 3 - restricted moon - Non fixed sun
-    // G = 460
+    // G = 320
     // init_speed = 2.0
     // init_mass = 360
     // this.bodies = [
@@ -60,16 +60,29 @@ class World {
     //   new Body({ x: this.size.x * 74/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 32/16 }, false, true),
     // ]
     // Sun, Earth & moon simulation 4 - restricted moon - fixed sun
-    G = 420
-    init_speed = 2.2
+    // G = 420
+    // init_speed = 2.2
+    // init_mass = 360
+    // this.bodies = [
+    //   new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: 0 }, true),
+    //   new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 32/32 }),
+    //   new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: 0 }, false, true),
+    //   new Body({ x: this.size.x * 78/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: 0 }, false, true),
+    //   new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 65/32 }, false, true),
+    //   new Body({ x: this.size.x * 78/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 65/32 }, false, true),
+    // ]
+    // Trisolaris
+    G = 140
+    init_speed = 1
     init_mass = 360
     this.bodies = [
-      new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: 0 }, true),
-      new Body({ x: this.size.x * 80/96, y: this.size.y/2 }, init_mass * 1/24, { x: 0, y: init_speed * 32/32 }),
-      new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: 0 }, false, true),
-      new Body({ x: this.size.x * 78/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: 0 }, false, true),
-      new Body({ x: this.size.x * 82/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 65/32 }, false, true),
-      new Body({ x: this.size.x * 78/96, y: this.size.y/2 }, init_mass * 1/24/24, { x: 0, y: init_speed * 65/32 }, false, true),
+      // Center Sun
+      new Body({ x: this.size.x * 48/96, y: this.size.y/2 }, init_mass * 3/24, { x: 0, y: 0 }, true, true),
+      // Smaller outer Suns
+      new Body({ x: this.size.x * 58/96, y: this.size.y/2 }, init_mass * 5/24, { x: 0, y: init_speed * 16/32 }),
+      new Body({ x: this.size.x * 38/96, y: this.size.y/2 }, init_mass * 5/24, { x: 0, y: -init_speed * 16/32 }),
+      // Trisolaris
+      new Body({ x: this.size.x * 48/96, y: this.size.y * 6/96 }, init_mass * 1/24, { x: init_speed * 30/32, y: 0 }, false, true),
     ]
     // this.bodies = [
     //   new Body({ x: this.size.x * 8/24, y: this.size.y/2 }, init_mass, { x: 0, y: 1/4* init_speed }),
@@ -93,6 +106,17 @@ class World {
       body.computePosition()
       // console.log(body.toString())
     }
+  }
+
+  loadExperiment(){
+    const experiment_idx = Math.floor(Math.random() * experiments.length)
+    const experiment = experiments[experiment_idx]
+    this.bodies = []
+    G = experiment.g
+    for (const body of experiment.bodies) {
+      this.bodies.push(new Body({ x: body.pos.x, y: body.pos.y }, body.mass, { x: body.v.x, y: body.v.y }, body.isFixed, body.isRestricted))
+    }
+    console.log(experiments)
   }
 }
 
@@ -192,6 +216,10 @@ class Renderer {
   clearCanvas() {
 		this.front.clearRect(0, 0, this.front.canvas.clientWidth, this.front.canvas.clientHeight);
 	}
+  resetCanvas() {
+		this.front.clearRect(0, 0, this.front.canvas.clientWidth, this.front.canvas.clientHeight);
+		this.back.clearRect(0, 0, this.front.canvas.clientWidth, this.front.canvas.clientHeight);
+	}
   renderBody(body){
     this.front.fillStyle = body.color;
 		this.front.beginPath();
@@ -240,9 +268,39 @@ class Game {
   }
 }
 
+let game, gui;
 window.onload = function() {
+  restart()
+}
+
+class GUI {
+  loadExperiment(world){
+    let dom_body_template = document.getElementById("body_template")
+    let dom_settings = document.getElementById("settings")
+    for (const body of world.bodies) {
+      let dom_body_clone = dom_body_template.cloneNode(true)
+      dom_body_clone.id = body.id
+      dom_body_clone.getElementsByClassName("size")[0].value = body.mass
+      dom_body_clone.getElementsByClassName("pos_x")[0].value = body.pos.x
+      dom_body_clone.getElementsByClassName("pos_y")[0].value = body.pos.y
+      dom_body_clone.getElementsByClassName("v_x")[0].value = body.v.x
+      dom_body_clone.getElementsByClassName("v_y")[0].value = body.v.y
+      dom_body_clone.getElementsByClassName("is_fixed")[0].checked = body.isFixed
+      dom_body_clone.getElementsByClassName("is_restricted")[0].checked = body.isRestricted
+      dom_body_clone.getElementsByClassName("body_color")[0].value = body.color
+      dom_settings.appendChild(dom_body_clone)
+    }
+  }
+}
+
+function restart() {
   let back_canvas = document.getElementById("back_canvas");
   let front_canvas = document.getElementById("front_canvas");
-  let game = new Game(front_canvas, back_canvas)
+  game, gui = null
+  gui = new GUI()
+  game = new Game(front_canvas, back_canvas)
+  game.world.loadExperiment()
+  game.renderer.resetCanvas()
+  gui.loadExperiment(game.world)
   game.start()
 }

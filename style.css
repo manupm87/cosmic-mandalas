@@ -1,4 +1,8 @@
 
+body{
+  font-family: monospace;
+}
+
 #canvas_container {
   display: grid;
 }
@@ -8,7 +12,6 @@ canvas {
 }
 #back_canvas {
   background-color: midnightblue;
-  /* position: static; */
   z-index: 0;
 }
 
@@ -35,11 +38,30 @@ canvas {
 
 #title{
   font-family: "sf-outer-limits";
-  font-size: 6em;
+  font-size: 5em;
   text-align: center;
   color: lightblue;
   margin-top: 1em;
 }
 #title_bold {
   color: midnightblue;
+}
+
+#settings {
+  width: 900px;
+  margin: auto;
+  margin-top: 3em;
+}
+
+.body_settings {
+  display: flex;
+  text-align: center;
+  margin-top: 1em;
+}
+.body_settings>div {
+  flex: auto;
+}
+
+#body_template {
+  display: none;
 }
