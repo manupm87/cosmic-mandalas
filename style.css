@@ -20,9 +20,13 @@ canvas {
   font-family: "exwayer";
   src: url("./static/fonts/exwayer/exwayer.ttf");
 }
+@font-face {
+  font-family: "nasalization";
+  src: url("./static/fonts/nasalization-free/nasalization-rg.otf");
+}
 
 #title{
-  font-family: "exwayer";
+  font-family: "nasalization";
   font-size: 6em;
   text-align: center;
   color: lightblue;
