@@ -4,12 +4,15 @@
     <script language="JavaScript" src="main.js"></script>
   </head>
   <body>
-    <canvas id="back_canvas" width="1200" height="1200" style="z-index: 0;">
-
-    </canvas>
-    <canvas id="front_canvas" width="1200" height="1200" style="z-index: 1;">
-
-    </canvas>
-    <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button>
+    <div>
+      <h1 id="title">
+        the <b id="title_bold">n</b>-<b id="title_bold">body</b> problem
+      </h1>
+    </div>
+    <div id="canvas_container">
+      <canvas id="back_canvas" width="900" height="900" style="z-index: 0;"></canvas>
+      <canvas id="front_canvas" width="900" height="900" style="z-index: 1;"></canvas>
+    </div>
+    <!-- <button onclick="downloadimage()" class="clickbtn">Click To Download Image</button> -->
   </body>
 </html>

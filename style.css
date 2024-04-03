@@ -1,8 +1,32 @@
-canvas {
-  /* background-color: midnightblue; */
-  position: absolute;
-}
 
+#canvas_container {
+  display: grid;
+}
+canvas {
+  grid-area: 1 / 1 / 2 / 2;
+  margin: auto;
+}
 #back_canvas {
   background-color: midnightblue;
+  /* position: static; */
+  z-index: 0;
+}
+
+#front_canvas {
+  z-index: 1;
+}
+
+@font-face {
+  font-family: "exwayer";
+  src: url("./static/fonts/exwayer/exwayer.ttf");
+}
+
+#title{
+  font-family: "exwayer";
+  font-size: 6em;
+  text-align: center;
+  color: lightblue;
+}
+#title_bold {
+  color: midnightblue;
 }

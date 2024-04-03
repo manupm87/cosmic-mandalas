@@ -5,7 +5,7 @@ class World {
   constructor(){
     let init_speed = 1.6
     let init_mass = 80
-    this.size = { x: 1200, y: 1200 }
+    this.size = { x: 900, y: 900 }
     // this.bodies = [
     //   new Body({ x: this.size.x * 6/24, y: this.size.y/2 }, init_mass * 1/2, { x: 0, y: init_speed/4 }),
     //   new Body({ x: this.size.x * 10/24, y: this.size.y/2 }, init_mass * 1/4, { x: 0, y: -init_speed/2 }),
@@ -61,7 +61,7 @@ class World {
     // ]
     // Sun, Earth & moon simulation 4 - restricted moon - fixed sun
     G = 420
-    init_speed = 1.8
+    init_speed = 2.2
     init_mass = 360
     this.bodies = [
       new Body({ x: this.size.x * 46/96, y: this.size.y/2 }, init_mass * 16/24, { x: 0, y: 0 }, true),
