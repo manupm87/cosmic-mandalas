@@ -53,6 +53,11 @@ canvas {
   margin-top: 3em;
 }
 
+.disabled input{
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .body_settings {
   display: flex;
   text-align: center;
